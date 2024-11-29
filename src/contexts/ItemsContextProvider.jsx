@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import { InitialItems } from "../lib/constants"
-const ItemsContextProvider = () => {
+
+export const ItemsContext = createContext()
+
+const ItemsContextProvider = ({ children }) => {
   const ItemsFromLocalStorafe = JSON.parse(localStorage.getItem("items"))
   const [items, setItems] = useState(() =>
     ItemsFromLocalStorafe.length > 0 ? ItemsFromLocalStorafe : InitialItems
@@ -44,14 +47,30 @@ const ItemsContextProvider = () => {
   const handleRemoveAll = () => {
     setItems([])
   }
-  const stats = {
-    total: items.length,
-    active: items.filter((item) => item.Packed).length,
-  }
+  const total = items.length
+  const active = items.filter((item) => item.Packed).length
+
   useEffect(() => {
     localStorage.setItem("items", JSON.stringify(items))
   }, [items])
-  return <div></div>
+  return (
+    <ItemsContext.Provider
+      value={{
+        items,
+        HandleNewItemText,
+        HandleDeleteItem,
+        handleSingleItemCheckToogle,
+        handleAllItemsCheck,
+        handleAllItemsUnCheck,
+        handleAllToInitial,
+        handleRemoveAll,
+        total,
+        active,
+      }}
+    >
+      {children}
+    </ItemsContext.Provider>
+  )
 }
 
 export default ItemsContextProvider

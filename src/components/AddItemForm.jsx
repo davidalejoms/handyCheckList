@@ -1,7 +1,10 @@
 import { useRef, useState } from "react"
 import Button from "./Button"
+import { useItemsContext } from "../lib/hooks"
 
-const AddItemForm = ({ onAddItem }) => {
+const AddItemForm = () => {
+  const { HandleNewItemText } = useItemsContext()
+
   const [itemText, setItemText] = useState("")
   const addFieldRef = useRef()
 
@@ -9,7 +12,7 @@ const AddItemForm = ({ onAddItem }) => {
     e.preventDefault()
     if (!itemText) return
 
-    onAddItem(itemText)
+    HandleNewItemText(itemText)
 
     setItemText("")
     addFieldRef.current.focus()

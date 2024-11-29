@@ -1,12 +1,15 @@
+import { useContext } from "react"
+import { ItemsContext } from "../contexts/ItemsContextProvider"
 import { secondaryButtons } from "../lib/constants"
 import Button from "./Button"
 
-const ButtonGroup = ({
-  handleAllItemsCheck,
-  handleAllItemsUnCheck,
-  handleAllToInitial,
-  handleRemoveAll,
-}) => {
+const ButtonGroup = () => {
+  const {
+    handleAllItemsCheck,
+    handleAllItemsUnCheck,
+    handleAllToInitial,
+    handleRemoveAll,
+  } = useContext(ItemsContext)
   const secondaryButtonsArr = [
     { text: secondaryButtons[0], onclick: handleAllItemsCheck },
     { text: secondaryButtons[1], onclick: handleAllItemsUnCheck },
