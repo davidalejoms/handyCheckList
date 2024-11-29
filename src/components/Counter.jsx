@@ -1,11 +1,13 @@
-import { useContext } from "react"
-import { ItemsContext } from "../contexts/ItemsContextProvider"
+import useItemsStore from "../stores/itemsStore"
 
 const Counter = () => {
-  const { active, total } = useContext(ItemsContext)
+  const total = useItemsStore((state) => state.total)
+  const checked = useItemsStore((state) => state.items).filter(
+    (item) => item.Packed
+  ).length
   return (
     <p>
-      <b>{active}</b> / {total} Items Packed
+      <b>{checked}</b> / {total} Items Packed
     </p>
   )
 }
