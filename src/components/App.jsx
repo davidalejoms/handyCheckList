@@ -8,8 +8,8 @@ import { InitialItems } from "../lib/constants"
 
 function App() {
   const ItemsFromLocalStorafe = JSON.parse(localStorage.getItem("items"))
-  const [items, setItems] = useState(() =>
-    ItemsFromLocalStorafe.length > 0 ? ItemsFromLocalStorafe : InitialItems
+  const [items, setItems] = useState(
+    () => ItemsFromLocalStorafe || InitialItems
   )
 
   const HandleNewItemText = (newItem) => {
